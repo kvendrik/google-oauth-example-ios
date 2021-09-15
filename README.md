@@ -11,3 +11,50 @@ Reason we're using both libraries is because `GoogleSignIn` is Google's new pref
 3. [Add the reversed client ID to your URL Types](https://developers.google.com/identity/sign-in/ios/start-integrating#add_a_url_scheme_for_google_sign-in_to_your_project)
 4. Go to `GoogleAuth.swift` and replace `YOUR_OAUTH_CLIENT_ID` with your newly created client ID
 5. Run the project in a simulator of your choice
+
+## How it works
+
+1. Load all saved authorizations from your keychain
+```swift
+GoogleAuth.shared.loadSavedAuthorizations() {
+    print("loaded authorizations")
+}
+```
+
+2. For new sign ins use `GoogleAuth.signIn`
+```swift
+googleAuth.signIn() {
+    success in
+    print(success ? "signed in" : "sign in failed")
+}
+```
+
+3. Handle incoming URLs for when Google redirects back to your app after login
+```swift
+extension SceneDelegate {
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        GoogleAuth.shared.handleUrl(url)
+    }
+}
+```
+
+4. Observe `GoogleAuth.shared` for changes in the logged in accounts
+
+```swift
+struct AccountsList: View {
+    @ObservedObject var googleAuth = GoogleAuth.shared
+    
+    var body: some View {
+        ForEach(googleAuth.profiles, id: \.self.email) {
+            profile in
+            Text(profile.email)
+        }
+    }
+}
+```
+
+5. Log out accounts using their profile sub
+```swift
+GoogleAuth.shared.logOut(profile.sub)
+```
