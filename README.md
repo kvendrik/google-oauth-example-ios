@@ -61,13 +61,11 @@ GoogleAuth.shared.logOut(profile.sub)
 
 6. Use `GoogleApi.fetch` for your own API requests
 ```swift
-let auth = GoogleAuth.shared.authorizations.values.first!
-
 guard let url = URL(string: "https://www.googleapis.com/oauth2/v3/userinfo") else { return }
 
 GoogleApi.shared.fetch(
     url: url,
-    authorization: authorization,
+    authorization: GoogleAuth.shared.authorizations.values.first!,
     dataStructure: GoogleProfile.self
 ) {
     profile, _ in
