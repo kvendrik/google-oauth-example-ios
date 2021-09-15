@@ -21,9 +21,9 @@ GoogleAuth.shared.loadSavedAuthorizations() {
 }
 ```
 
-2. For new sign ins use `GoogleAuth.signIn`
+2. For new sign ins use `GoogleAuth.shared.signIn(_:)`
 ```swift
-googleAuth.signIn() {
+GoogleAuth.shared.signIn() {
     success in
     print(success ? "signed in" : "sign in failed")
 }
@@ -59,7 +59,7 @@ struct AccountsList: View {
 GoogleAuth.shared.logOut(profile.sub)
 ```
 
-6. Use `GoogleApi.fetch` for your own API requests
+6. Use `GoogleApi.shared.fetch(url:authorization:dataStructure:_:)` for your own API requests
 ```swift
 let profileSub = GoogleAuth.shared.profiles.first!.sub
 
