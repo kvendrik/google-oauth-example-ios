@@ -1,4 +1,4 @@
-# Google oAuth iOS Example
+# Google oAuth Example iOS
 
 Example of oAuth authentication with multi-account support on iOS using [`GoogleSignIn`](https://github.com/google/GoogleSignIn-iOS) and [`GTMAppAuth`](https://github.com/google/GTMAppAuth).
 
