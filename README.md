@@ -58,3 +58,5 @@ struct AccountsList: View {
 ```swift
 GoogleAuth.shared.logOut(profile.sub)
 ```
+
+6. Have a look at [`GoogleAuth.swift`'s `fetchProfile` method](https://github.com/kvendrik/google-oauth-example-ios/blob/18b6f9e9b9dd0a48ad5ebd75196f1657af626dca/google-oauth-example/google-api/GoogleAuth.swift#L141-L165) to see how you can use `GoogleApi.fetch` for your own API requests
