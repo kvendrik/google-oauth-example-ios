@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var googleAuth = GoogleAuth.shared
+    @State var ready = false
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        Group {
+            if ready {
+                GoogleAccountsList()
+            } else {
+                ProgressView()
+            }
+        }
+        .preferredColorScheme(.dark)
+        .onAppear(perform: handleAppear)
+    }
+    
+    private func handleAppear() {
+        GoogleAuth.shared.loadSavedAuthorizations() {
+            withAnimation(.easeInOut(duration: 1)) {
+                self.ready = true
+            }
+        }
     }
 }
 
